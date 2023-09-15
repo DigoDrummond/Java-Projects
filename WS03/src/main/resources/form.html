@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CRUD de Produtos</title>
+    <!-- ... Seu código HTML anterior ... -->
+
+<script>
+    // Função para manipular a submissão do formulário de criação de produto
+    document.getElementById("create-form").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        // Coletar os dados do formulário
+        const formData = new FormData(this);
+
+        // Enviar uma solicitação POST para a URL apropriada
+        fetch(this.action, {
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Manipular a resposta do servidor, se necessário
+            // Por exemplo, você pode exibir uma mensagem de sucesso
+            alert("Produto criado com sucesso!");
+            // Limpar o formulário após o sucesso, se desejado
+            this.reset();
+        })
+        .catch(error => {
+            // Lidar com erros, se houver
+            console.error("Erro ao criar o produto:", error);
+        });
+    });
+</script>
+
+<!-- ... Resto do seu código HTML ... -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .product-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .product-list li {
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        .product-list a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CRUD de Produtos</h1>
+    
+    <!-- Formulário para criar um novo produto -->
+    <h2>Criar Produto</h2>
+    <form id="create-form" action="/produto/insert" method="POST">
+        Descrição: <input type="text" name="descricao"><br>
+        Preço: <input type="text" name="preco"><br>
+        Quantidade: <input type="text" name="quantidade"><br>
+        Data de Fabricação: <input type="text" name="dataFabricacao"><br>
+        Data de Validade: <input type="text" name="dataValidade"><br>
+        <input type="submit" value="Criar">
+    </form>
+
+    <!-- Formulário para visualizar um produto por ID -->
+    <h2>Visualizar Produto</h2>
+    <form id="view-form" action="/produto/:id" method="GET">
+        ID do Produto: <input type="text" name="id"><br>
+        <input type="submit" value="Visualizar">
+    </form>
+
+    <!-- Formulário para atualizar um produto por ID -->
+    <h2>Atualizar Produto</h2>
+    <form id="update-form" action="/produto/update/:id" method="POST">
+        ID do Produto: <input type="text" name="id"><br>
+        Descrição: <input type="text" name="descricao"><br>
+        Preço: <input type="text" name="preco"><br>
+        Quantidade: <input type="text" name="quantidade"><br>
+        Data de Fabricação: <input type="text" name="dataFabricacao"><br>
+        Data de Validade: <input type="text" name="dataValidade"><br>
+        <input type="submit" value="Atualizar">
+    </form>
+
+    <!-- Formulário para deletar um produto por ID -->
+    <h2>Deletar Produto</h2>
+    <form id="delete-form" action="/produto/delete/:id" method="GET">
+        ID do Produto: <input type="text" name="id"><br>
+        <input type="submit" value="Deletar">
+    </form>
+
+    <!-- Lista de produtos -->
+    <h2>Lista de Produtos</h2>
+    <ul class="product-list">
+        <li><a href="/produto/list/descricao">Listar por Descrição</a></li>
+        <li><a href="/produto/list/preco">Listar por Preço</a></li>
+        <!-- Adicione links para ordenar a lista de produtos -->
+    </ul>
+
+    <!-- Espaço para exibir a lista de produtos (você pode adicionar isso dinamicamente com JavaScript) -->
+    <div id="product-list"></div>
+
+    <script>
+        // Seu código JavaScript para interagir com os formulários e exibir dados aqui.
+    </script>
+</body>
+</html>
