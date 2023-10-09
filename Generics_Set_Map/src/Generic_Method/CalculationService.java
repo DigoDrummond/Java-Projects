@@ -1,0 +1,22 @@
+package Generic_Method;
+
+import java.util.List;
+
+public class CalculationService {
+	// generaliza classe que encontra maior elemento
+	// especifica que tipo <T> é um tipo comparable, para se usar compareTo da
+	// interface comparable
+
+	public static <T extends Comparable<? super T>> T max(List<T> list) {
+		if (list.isEmpty())
+			throw new IllegalStateException("List can't be empty");
+
+		T max = list.get(0);
+		for (T i : list) {
+			if (i.compareTo(max) > 0) {
+				max = i;
+			}
+		}
+		return max;
+	}
+}
